@@ -16,22 +16,23 @@ kubectl rollout history deployment echo
 ```
 
 4. 동일한 spec이며 파드 개수 만 수정한다.
-기존 예제 코드에서 pod 복제 수를 늘린다.   
-이 후 수정된 매니페스트 적용한다.   
-scale up되었는지 확인한다.   
+기존 예제 코드에서 pod 복제 수를 늘린다. 이 후 수정된 매니페스트 적용한다. scale up되었는지 확인한다.   
+  simple-deployment.yaml
+  - replicas 개수 변경 ( 3 -> 4 )
 ```
-# 디플로이먼트 배포
-kubectl apply -f simple-deployment-scale-up.yaml --record
+# 수정 후 디플로이먼트 재배포
+kubectl apply -f simple-deployment.yaml --record
 
 # 리비전 확인
 kubectl rollout history deployment echo
 ```
 
 5. 컨테이너 정의 수정 시 리비전 변경이 있는지 확인한다.
-(simple-deployment-scale-up.yaml)
+  simple-deployment.yaml
+  - image 변경 (echo:patch)
 ```
-# 디플로이먼트 배포
-kubectl apply -f simple-deployment-update-spec.yaml --record
+# 변경 후 디플로이먼트 재배포
+kubectl apply -f simple-deployment.yaml --record
 
 # 리비전 확인
 kubectl rollout history deployment echo
